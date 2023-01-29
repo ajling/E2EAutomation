@@ -11,14 +11,10 @@ namespace SeleniumNetCore.Support.Reporting
     {
         private static Log log = new Log();
         private static IConfiguration _configuration = null;
-        //private static readonly object _lock = new object();
 
         public static void StartLog(string scenarioName)
         {
-            //lock (_lock)
-            //{
-                log.StartScenarioLog(scenarioName);
-            //}
+            log.StartScenarioLog(scenarioName);
 
             _configuration = General.GetConfiguration();
         }
@@ -30,36 +26,30 @@ namespace SeleniumNetCore.Support.Reporting
 
         public static void WriteSuccessfulVerification(string description)
         {
-            //lock (_lock)
-            //{
-                try
-                {
-                    log.SummaryReportLog(Status.Pass, description);
-                }
-                catch (FileNotFoundException)
-                {
-                    // Do nothing - razor engine issue
-                }
-            //}
+            try
+            {
+                log.SummaryReportLog(Status.Pass, description);
+            }
+            catch (FileNotFoundException)
+            {
+                // Do nothing - razor engine issue
+            }
         }
 
         public static void WriteTestInfo(string description)
         {
-            //lock (_lock)
-            //{
-                try
-                {
-                    log.EventReportLog(Status.Info, description);
-                }
-                catch (FormatException)
-                {
-                    // Do nothing - for base64 issue
-                }
-                catch (FileNotFoundException)
-                {
-                    // Do nothing - razor engine issue
-                }
-            //}
+            try
+            {
+                log.EventReportLog(Status.Info, description);
+            }
+            catch (FormatException)
+            {
+                // Do nothing - for base64 issue
+            }
+            catch (FileNotFoundException)
+            {
+                // Do nothing - razor engine issue
+            }
         }
 
         public static void WriteTestInfoAndTakeScreenshot(IWebDriver driver, string description)
@@ -93,17 +83,14 @@ namespace SeleniumNetCore.Support.Reporting
 
         public static void WriteSuccessfulEventLog(string description)
         {
-            //lock (_lock)
-            //{
-                try
-                {
-                    log.EventReportLog(Status.Pass, description);
-                }
-                catch (FileNotFoundException)
-                {
-                    // Do nothing - razor engine issue
-                }
-            //}
+            try
+            {
+                log.EventReportLog(Status.Pass, description);
+            }
+            catch (FileNotFoundException)
+            {
+                // Do nothing - razor engine issue
+            }
         }
 
         public static void AddScenarioNames(string scenarioName)
@@ -115,11 +102,7 @@ namespace SeleniumNetCore.Support.Reporting
         {
             var scenarioName = log.GetScenarioName();
             log.EventReportLog(Status.Info, "Failing Test, taking screenshot, closing app, and closing log");
-
-            //lock (_lock)
-            //{
-                log.EventReportLog(Status.Fail, $"Description: '{description}'");
-            //}
+            log.EventReportLog(Status.Fail, $"Description: '{description}'");
             try
             {
                 log.TakeScreenshot(driver, scenarioName);
@@ -165,10 +148,7 @@ namespace SeleniumNetCore.Support.Reporting
             }
 
             log.EventReportLog(Status.Info, "Failing Test, taking screenshot, closing app, and closing log");
-            //lock (_lock)
-            //{
-                log.EventReportLog(Status.Fail, exceptionError);
-            //}
+            log.EventReportLog(Status.Fail, exceptionError);
             try
             {
                 log.TakeScreenshot(driver, scenarioName);

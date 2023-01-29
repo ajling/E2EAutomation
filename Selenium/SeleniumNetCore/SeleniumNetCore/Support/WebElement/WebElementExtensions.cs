@@ -357,7 +357,7 @@ namespace SeleniumNetCore.Support.WebElement
                 if (returnDayElementBasedOnIndex.Displayed && returnedDayElementAttribute.Equals(expectedAttributeValue))
                 {
                     Reporter.WriteSuccessfulEventLog($"Index of day element to be selected from list of elements :'{i}'");
-                    returnDayElementBasedOnIndex.Clicked();
+                    returnDayElementBasedOnIndex.Click();
                     break;
                 }
                 else if (!returnDayElementBasedOnIndex.Displayed && returnedDayElementAttribute.Equals(expectedAttributeValue))
@@ -366,13 +366,13 @@ namespace SeleniumNetCore.Support.WebElement
                     {
                         if (!returnDayElementBasedOnIndex.Displayed)
                         {
-                            frontArrowButton.Clicked();
+                            frontArrowButton.Click();
                             Thread.Sleep(1000);
                             Reporter.WriteSuccessfulEventLog("Clicking the front arrow in search of the selected day in the calendar.");
                         }
                         else if (returnDayElementBasedOnIndex.Displayed)
                         {
-                            returnDayElementBasedOnIndex.Clicked();
+                            returnDayElementBasedOnIndex.Click();
                             Reporter.WriteSuccessfulEventLog("I have seen and clicked the randomly selected available day on the calendar, will break out of loop.");
                             break;
                         }
@@ -382,13 +382,13 @@ namespace SeleniumNetCore.Support.WebElement
                     {
                         if (!returnDayElementBasedOnIndex.Displayed)
                         {
-                            backArrowButton.Clicked();
+                            backArrowButton.Click();
                             Thread.Sleep(1000);
                             Reporter.WriteSuccessfulEventLog("Clicking the back arrow in search of the selected day in the calendar.");
                         }
                         else if (returnDayElementBasedOnIndex.Displayed)
                         {
-                            returnDayElementBasedOnIndex.Clicked();
+                            returnDayElementBasedOnIndex.Click();
                             Reporter.WriteSuccessfulEventLog("I have seen and clicked the randomly selected available day on the calendar, will break out of loop.");
                             break;
                         }
@@ -656,7 +656,7 @@ namespace SeleniumNetCore.Support.WebElement
             {
                 if (element.GetText().Equals(text))
                 {
-                    element.Clicked();
+                    element.Click();
                     break;
                 }
             }

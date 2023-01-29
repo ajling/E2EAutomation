@@ -25,8 +25,6 @@ namespace SeleniumNetCore.Support.Reporting
 
         private static ExtentReports _eventReports;
 
-        //private static readonly object _lock = new object();
-
 
         public Log()
         {
@@ -176,47 +174,38 @@ namespace SeleniumNetCore.Support.Reporting
 
         private static ExtentTest GetEventTest(string scenarioName, string description = "")
         {
-            //lock (_lock)
-            //{
-                if (!_eventNameToTest.ContainsKey(scenarioName))
+            if (!_eventNameToTest.ContainsKey(scenarioName))
+            {
+                var threadId = Thread.CurrentThread.ManagedThreadId;
+                var eventTest = _eventReports.CreateTest(scenarioName, description);
+                _eventNameToTest.Add(scenarioName, eventTest);
+                if (_eventThreadToExtentTest.ContainsKey(threadId))
                 {
-                    var threadId = Thread.CurrentThread.ManagedThreadId;
-                    var eventTest = _eventReports.CreateTest(scenarioName, description);
-                    _eventNameToTest.Add(scenarioName, eventTest);
-                    if (_eventThreadToExtentTest.ContainsKey(threadId))
-                    {
-                        _eventThreadToExtentTest[threadId] = scenarioName;
-                    }
-                    else
-                    {
-                        _eventThreadToExtentTest.Add(threadId, scenarioName);
-                    }
+                    _eventThreadToExtentTest[threadId] = scenarioName;
                 }
-                return _eventNameToTest[scenarioName];
-            //}
+                else
+                {
+                    _eventThreadToExtentTest.Add(threadId, scenarioName);
+                }
+            }
+            return _eventNameToTest[scenarioName];
         }
 
         private static ExtentTest GetEventTest(string scenarioName)
         {
-            //lock (_lock)
-            //{
-                return GetEventTest(scenarioName, string.Empty);
-            //}
+            return GetEventTest(scenarioName, string.Empty);
         }
 
         private static ExtentTest GetEventTest()
         {
-            //lock (_lock)
-            //{
-                var threadId = Thread.CurrentThread.ManagedThreadId;
+            var threadId = Thread.CurrentThread.ManagedThreadId;
 
-                if (_eventThreadToExtentTest.ContainsKey(threadId))
-                {
-                    var scenarioName = _eventThreadToExtentTest[threadId];
-                    return _eventNameToTest[scenarioName];
-                }
-                return null;
-            //}
+            if (_eventThreadToExtentTest.ContainsKey(threadId))
+            {
+                var scenarioName = _eventThreadToExtentTest[threadId];
+                return _eventNameToTest[scenarioName];
+            }
+            return null;
         }
     }
 }

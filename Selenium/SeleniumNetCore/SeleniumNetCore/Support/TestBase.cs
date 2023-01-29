@@ -12,10 +12,10 @@ using System.Threading;
 
 namespace SeleniumNetCore.Support
 {
-    internal class TestBase
+    public class TestBase
     {
         private static readonly ThreadLocal<IWebDriver> _threadDriver = new ThreadLocal<IWebDriver>();
-        public IWebDriver Driver
+        public IWebDriver driver
         {
             get
             {
@@ -63,6 +63,13 @@ namespace SeleniumNetCore.Support
             {
                 _testStatus = value;
             }
+        }
+
+        public T NavigateTo<T>(string url)
+        {
+            GetDriver.Navigate().GoToUrl(url);
+            Reporter.WriteSuccessfulEventLog($"Successfully navogated to url '{url}'");
+            return (T)Activator.CreateInstance(typeof(T), new object[] { });
         }
 
         public void MarkTestAsPassed(IWebDriver driver)
@@ -182,17 +189,17 @@ namespace SeleniumNetCore.Support
         {
             if (upperCaseSelector)
             {
-                Driver.FindElement(By.XPath("//p[normalize-space()='PREVIOUS']")).ClickElement();
+                driver.FindElement(By.XPath("//p[normalize-space()='PREVIOUS']")).ClickElement();
             }
             else
             {
-                Driver.FindElement(By.XPath("//p[normalize-space()='Previous']")).ClickElement();
+                driver.FindElement(By.XPath("//p[normalize-space()='Previous']")).ClickElement();
             }
         }
 
         public void ActionsClick(IWebElement ele)
         {
-            Actions action = new Actions(Driver);
+            Actions action = new Actions(driver);
 
             action.Click(ele)
                 .Perform();
