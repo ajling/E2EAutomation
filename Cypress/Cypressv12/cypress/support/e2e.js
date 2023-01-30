@@ -17,3 +17,12 @@
 import "./commands";
 import 'cypress-mochawesome-reporter/register';
 require("@cypress/xpath");
+
+// Below allows tests to run when scripts or api's are failing
+// Can be cuystomised to handle specific errors if need be:
+// https://docs.cypress.io/api/events/catalog-of-events#Uncaught-Exceptions
+Cypress.on('uncaught:exception', (err, runnable) => {
+    // returning false here prevents Cypress from
+    // failing the test
+    return false
+});

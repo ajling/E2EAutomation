@@ -4,15 +4,14 @@ Feature: Test HTML Elements
 
 @example
 Scenario Outline: Test HTML Elements
-	Given I navigate to JavaTPoint HTML page
+	Given I navigate to Quakit HTML page
 	Then I verify the HTML page has loaded
 	When I click the HTML Tag '<htmlTag>'
-    Then I verify the '<htmlTitle>' page has loaded
-	#And TODO
-	#Then TODO
-	#And TODO
+    Then I verify the html element example page has loaded
+    When I interact with the element using '<interaction>'
+	Then I verify the interaction occurred '<interaction>'
 
 Examples:
-    | htmlTag          | htmlTitle      |
-    | HTML <a> Tag     | HTML Anchor    |
-    | HTML <input> Tag | HTML Input Tag |
+    | htmlTag           | interaction |
+    | Basic link        | link        |
+    | input type="text" | text        |

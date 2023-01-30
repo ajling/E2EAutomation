@@ -2,7 +2,7 @@
 const { Given, Then, When } = require("@badeball/cypress-cucumber-preprocessor");
 
 import htmlTagPage from "../../framework/pages/htmlTagPage";
-import htmlTutorialPage from "../../framework/pages/htmlTutorialPage";
+import htmlExamplePage from "../../framework/pages/htmlExamplePage";
 import genericHelpers from "./../../framework/genericHelpers";
 
 beforeEach(() => {
@@ -10,22 +10,38 @@ beforeEach(() => {
     genericHelpers.setMobileView();
 });
 
-Given(`I navigate to JavaTPoint HTML page`, () => {
-    cy.visit("/html-tutorial");
+Given(`I navigate to Quakit HTML page`, () => {
+    cy.visit("html/examples/");
 });
 
 Then(`I verify the HTML page has loaded`, () => {
-    htmlTutorialPage.verifyHtmlTutorialPageLoaded();
+    htmlExamplePage.verifyHtmlExamplePageLoaded();
 });
 
 When("I click the HTML Tag {string}", (htmlTag) => {
-    htmlTutorialPage.clickHtmlTagLink(htmlTag);
+    htmlExamplePage.clickHtmlTagLink(htmlTag);
 });
 
-Then("I verify the {string} page has loaded", (htmlTitle) => {
-    htmlTagPage.verifyHtmlTagPageLoaded(htmlTitle);
+Then("I verify the html element example page has loaded", () => {
+    htmlTagPage.verifyHtmlTagPageLoaded();
 });
 
-When("I select a date time", () => {
-    
+When("I interact with the element using {string}", (interaction) => {
+    if (interaction == "link") {
+        htmlTagPage.clickLink();
+    } else if (interaction == "text") {
+        htmlTagPage.enterText("Automated Testing Text");
+    } else {
+        // TODO
+    }
 });
+
+Then("I verify the interaction occurred {string}", (interaction) => {
+    if (interaction == "link") {
+        htmlTagPage.verifyLinkHref();
+    } else if (interaction == "text") {
+        htmlTagPage.verifyEnteredText();
+    } else {
+        // TODO
+    }
+})

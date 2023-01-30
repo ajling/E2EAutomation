@@ -17,7 +17,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "cy:ci": "start-server-and-test client:dev http-get://localhost:8080 cy:run_smoketests",
     "cy:run_smoketests": "yarn cypress run --browser chrome --headless -e TAGS=\"@smokeTests\"",
-    "cy:open": "yarn cypress open --e2e --browser electron",
+    "cy:open": "yarn cypress open --e2e --browser chrome",
     "cy:run": "yarn cypress run --browser electron --spec 'cypress/e2e/**/*.feature'"
   },
   "dependencies": {

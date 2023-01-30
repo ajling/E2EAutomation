@@ -1,10 +1,10 @@
 export default {
-    verifyHtmlTutorialPageLoaded() {
-        cy.findAllByRole("heading", { name: "HTML Tutorial"})
+    verifyHtmlExamplePageLoaded() {
+        cy.findAllByRole("heading", { name: "HTML Examples"})
             .filter(":visible")
             .first()
             .should("be.visible");
-        cy.findAllByRole("link", { name: "next →"})
+        cy.findAllByRole("link", { name: "HTML Text Examples"})
             .filter(":visible")
             .first()
             .should("be.visible");
@@ -14,6 +14,7 @@ export default {
         cy.findAllByRole("link", { name: htmlTag})
             .scrollIntoView()
             .first()
+            .invoke('removeAttr', 'target')
             .click();
     },
 }

@@ -37,5 +37,13 @@ export default {
           }
         });
         cy.wait(2000);
-      }
+      },
+
+      getIframeDocument() {
+        return cy.get("#preview").its('0.contentDocument').should('exist');
+      },
+
+      getIFrameBody() {
+        return this.getIframeDocument().its('body').should('not.be.undefined').then(cy.wrap);
+      },
 }

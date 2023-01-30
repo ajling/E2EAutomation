@@ -37,7 +37,7 @@ module.exports = defineConfig({
   },
   screenshotOnRunFailure: true,
   e2e: {
-    baseUrl: 'https://www.javatpoint.com',
+    baseUrl: 'https://www.quackit.com/',
     specPattern: '**/*.feature',
     excludeSpecPattern: '*.js',
     supportFile: 'cypress/support/e2e.{js,jsx,ts,tsx}',
@@ -53,13 +53,19 @@ module.exports = defineConfig({
     defaultCommandTimeout: 30000,
     viewportWidth: 1200,
     viewportHeight: 768,
-    responseTimeout: 60000,
+    responseTimeout: 30000,
     waitAfterEachCommand: 500,
     screenshotsFolder: 'cypress/reports/html/screenshots',
     retries: {
         runMode: 1,
         openMode: 0,
     },
+    blockHosts: [
+      "www.googletagmanager.com",
+      "*doubleclick.net",
+      "*youtube.com",
+      "*ph-126.net",
+    ],
   },
   
 })
