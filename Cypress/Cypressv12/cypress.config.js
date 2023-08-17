@@ -21,19 +21,20 @@ async function setupNodeEvents(on, config) {
 }
 
 module.exports = defineConfig({
-  reporter: 'cypress-multi-reporters',
+  reporter: 'cypress-mochawesome-reporter',
   reporterOptions: {
-    reporterEnabled: "cypress-mochawesome-reporter, spec, mocha-junit-reporter",
-    cypressMochawesomeReporterReporterOptions: {
-      reportDir: "cypress/reports/html",
-      charts: false,
-      reportPageTitle: "Cypress-E2E-Tests",
-      embeddedScreenshots: true,
-      inlineAssets: true
-    },
-    mochaJunitReporterReporterOptions: {
-      mochaFile: "test-report-xml/results-[hash].xml"
-    }
+    charts: true,
+    reportTitle: 'Test HTML Elements Report',
+    reportPageTitle: 'Test HTML Elements Report',
+    reportFilename: 'TestReport',
+    embeddedScreenshots: true,
+    inlineAssets: true,
+    saveAllAttempts: false,
+    showPassed: true,
+    showFailed: true,
+    showPending: false,
+    showSkipped: false,
+    timestamp: 'mmddyyyy_HHMMss'
   },
   screenshotOnRunFailure: true,
   e2e: {
@@ -57,7 +58,7 @@ module.exports = defineConfig({
     waitAfterEachCommand: 500,
     screenshotsFolder: 'cypress/reports/html/screenshots',
     retries: {
-        runMode: 1,
+        runMode: 0,
         openMode: 0,
     },
     blockHosts: [
@@ -67,5 +68,4 @@ module.exports = defineConfig({
       "*ph-126.net",
     ],
   },
-  
 })
