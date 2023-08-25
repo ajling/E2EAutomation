@@ -5,18 +5,12 @@ const createEsbuildPlugin = require("@badeball/cypress-cucumber-preprocessor/esb
 require("events").EventEmitter.defaultMaxListeners = 55;
 
 async function setupNodeEvents(on, config) {
-  
+  const bundler = createBundler({
+    plugins: [createEsbuildPlugin.createEsbuildPlugin(config)],
+  });
+  on("file:preprocessor", bundler);
   await preprocessor.addCucumberPreprocessorPlugin(on, config);
-  on(
-    "file:preprocessor",
-    createBundler({
-      plugins: [createEsbuildPlugin.default(config)],
-    })
-  )
-
   require('cypress-mochawesome-reporter/plugin')(on);
-
-  // Make sure to return the config object as it might have been modified by the plugin.
   return config;
 }
 
@@ -26,37 +20,37 @@ module.exports = defineConfig({
     charts: true,
     reportTitle: 'Test HTML Elements Report',
     reportPageTitle: 'Test HTML Elements Report',
+    reportDir: 'cypress/reports',
     reportFilename: 'TestReport',
     embeddedScreenshots: true,
     inlineAssets: true,
     saveAllAttempts: false,
+    code: false,
     showPassed: true,
     showFailed: true,
     showPending: false,
     showSkipped: false,
     timestamp: 'mmddyyyy_HHMMss'
   },
-  screenshotOnRunFailure: true,
   e2e: {
     baseUrl: 'https://www.quackit.com/',
     specPattern: '**/*.feature',
     excludeSpecPattern: '*.js',
     supportFile: 'cypress/support/e2e.{js,jsx,ts,tsx}',
     watchForFileChanges: true,
-    setupNodeEvents,
-    runInMobileView: false,
+    screenshotOnRunFailure: true,
+    chromeWebSecurity: false,
+    experimentalOriginDependencies: false,
+    experimentalSourceRewriting: false,
+    modifyObstructiveCode: true,
     videoUploadOnPasses: false,
     video: false,
-    experimentalSourceRewriting: false,
-    chromeWebSecurity: false,
-    modifyObstructiveCode: true,
-    pageLoadTimeout: 120000,
-    defaultCommandTimeout: 30000,
+    failOnStatusCode: false,
+    screenshotsFolder: 'cypress/reports/screenshots',
     viewportWidth: 1200,
     viewportHeight: 768,
-    responseTimeout: 30000,
-    waitAfterEachCommand: 500,
-    screenshotsFolder: 'cypress/reports/html/screenshots',
+    runInMobileView: false,
+    setupNodeEvents,    
     retries: {
         runMode: 0,
         openMode: 0,

@@ -1,0 +1,50 @@
+{
+  "name": "cypressv9",
+  "version": "1.0.0",
+  "description": "E2E Automated Tests using Cypress v9",
+  "author": "Adrian Ling",
+  "license": "ISC",
+  "repository": "https://github.com/ajling/E2EAutomation",
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true
+  },
+  "resolutions": {
+    "cypress": "9.7.0"
+  },
+  "scripts": {
+    "cy:open": "yarn cypress open",
+    "cy:run": "yarn cypress run --browser chrome --spec 'cypress/integration/**/*.feature'",
+    "cy:runexample": "yarn cypress-tags run --browser chrome --headless -e TAGS=\"@example\"",
+    "merge:reports": "mochawesome-merge -f cypress/reports/json-result/*.json -o cypress/reports/merged-json/test-reports.json",
+    "create:html:report": "marge cypress/reports/merged-json/test-reports.json -p Test-Report -t Cypress-v9-Tests -f cypress-v9-test-report -o cypress/reports/html --inline --charts --no-code",
+    "generate:html:report": "yarn run merge:reports && yarn run create:html:report"
+  },
+  "dependencies": {
+    "@babel/core": "7.17.4",
+    "@cypress/browserify-preprocessor": "3.0.2",
+    "@testing-library/cypress": "^8.0.2",
+    "@testing-library/jest-dom": "5.16.2",
+    "@testing-library/react": "12.1.3",
+    "async": "3.2.3",
+    "chai": "4.3.6",
+    "chai-sorted": "0.2.0",
+    "concurrently": "7.0.0",
+    "cypress": "^9.7.0",
+    "cypress-cucumber-preprocessor": "4.3.1",
+    "cypress-failed-log": "2.9.2",
+    "cypress-file-upload": "5.0.8",
+    "cypress-iframe": "^1.0.1",
+    "cypress-multi-reporters": "1.5.0",
+    "cypress-tags": "0.3.0",
+    "cypress-wait-until": "1.7.2",
+    "cypress-xpath": "1.6.2",
+    "image-to-base64": "^2.2.0",
+    "mocha": "9.2.0",
+    "mocha-junit-reporter": "2.0.2",
+    "mochawesome": "7.0.1",
+    "mochawesome-merge": "4.2.1",
+    "mochawesome-report-generator": "6.0.1",
+    "strip-ansi": "^7.0.1",
+    "url-parse": "1.5.9"
+  }
+}

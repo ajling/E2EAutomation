@@ -1,0 +1,30 @@
+{
+    "baseUrl": "https://www.quackit.com/",
+    "env": {},
+    "retries": {
+      "runMode": 0,
+      "openMode": 0
+    },
+    "runInMobileView": false,
+    "testFiles": "**/*.feature",
+    "ignoreTestFiles": "*.js",
+    "videoUploadOnPasses": false,
+    "watchForFileChanges": true,
+    "video": false,
+    "experimentalSourceRewriting": false,
+    "chromeWebSecurity": false,
+    "modifyObstructiveCode": true,
+    "viewportWidth": 1200,
+    "viewportHeight": 768,
+    "screenshotsFolder": "cypress/reports/screenshots",
+    "reporter": "cypress-multi-reporters",
+    "reporterOptions": {
+      "configFile": "reporterOptions.json"
+    },
+    "blockHosts": [
+        "www.googletagmanager.com",
+        "*doubleclick.net",
+        "*youtube.com",
+        "*ph-126.net"
+    ]
+  }
